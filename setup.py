@@ -4,7 +4,7 @@ version = "0.0.1"
 
 
 setup(
-    name='fastgame',
+    name='fastgames',
     version=version,
     description='Fast creation of python games',
     author='Borov777py',
