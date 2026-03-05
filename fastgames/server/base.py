@@ -22,6 +22,8 @@ class _Client:
         while True:
             try:
                 data = loads(self.__socket.recv(1024).decode('UTF-8'))
+            except BlockingIOError:
+                continue
             except Exception:
                 logger.warning("Error when receiving data from the client")
                 break
