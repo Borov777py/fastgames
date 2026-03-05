@@ -28,7 +28,11 @@ class _Client:
                 logger.warning("Error when receiving data from the client")
                 break
 
-            result = dispatcher.handle_data(data=data)
+            try:
+                result = dispatcher.handle_data(data=data)
+            except Exception:
+                logger.warning("Client data processing error")
+                break
 
             try:
                 self.__socket.sendall(bytes(dumps(result), 'UTF-8'))
