@@ -27,11 +27,11 @@ class Dispatcher:
         for middleware in args:
             self.__middlewares.append(middleware)
 
-    def handle_requests(self, requests: list[RequestModel]) -> dict[str, Any]:
-        """Обработка полученных запросов"""
+    def handle_data(self, data: Any) -> dict[str, Any]:
+        """Обработка полученных данных от клиента"""
         response: dict[str, Any] = {}
 
-        for request in requests:
+        for request in [RequestModel(**item) for item in data]:
             if (handler := self.__handlers.get(request.name, None)) is None:
                 continue
 
