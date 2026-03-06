@@ -27,7 +27,7 @@ class Dispatcher:
         for middleware in args:
             self.__middlewares.append(middleware)
 
-    def handle_data(self, data: Any) -> dict[str, Any]:
+    def handle_data(self, data: list[dict[str, Any]]) -> dict[str, Any]:
         """Обработка полученных данных от клиента"""
         response: dict[str, Any] = {}
 
