@@ -1,11 +1,11 @@
-from typing import Any
+from typing import Any, Optional
 
 from pydantic import BaseModel
 
 
 class RequestModel(BaseModel):
     name: str
-    data: dict[str, Any]
+    data: Optional[dict[str, Any]] = {}
 
 
 class ResponseModel(BaseModel):
