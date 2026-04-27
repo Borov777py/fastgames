@@ -40,6 +40,9 @@ class _Client:
                 logger.warning("Error when sending data to the client")
                 break
 
+        self.disconnect()
+    
+    def disconnect(self):
         self.__socket.close()
         logger.info(f'Disconnect: {self.__address}')
 
@@ -51,6 +54,8 @@ class Server:
         self.__socket.listen(10)
         self.__socket.setblocking(False)
 
+        self.__clients: list[_Client] = []
+
         logger.info(f"Create server: {ip_address}")
 
     def get_clients(self, dispatcher: Dispatcher) -> None:
@@ -58,12 +63,13 @@ class Server:
         try:
             while True:
                 try:
-                    Thread(
-                        target=_Client(client_data=self.__socket.accept()),
-                        args=(dispatcher,)
-                    ).start()
+                    new_client = _Client(client_data=self.__socket.accept())
+                    self.__clients.append(new_client)
+                    Thread(target=new_client, args=(dispatcher,)).start()
                 except BlockingIOError:
                     sleep(0.1)
         except KeyboardInterrupt:
+            for client in self.__clients:
+                client.disconnect()
             self.__socket.close()
             logger.info(f"Close server...")
