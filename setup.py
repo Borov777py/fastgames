@@ -9,7 +9,7 @@ setup(
     description='Fast creation of python games',
     author='Borov777py',
     author_email='kozhushko756@mail.ru',
-    url='https://github.com/Borov777py/fastgame',
+    url='https://github.com/Borov777py/fastgames',
     packages=find_packages(),
     install_requires=[
         'pydantic',
